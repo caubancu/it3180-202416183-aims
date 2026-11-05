@@ -2,14 +2,14 @@
 
 ## Câu hỏi thảo luận
 
-### 1. Vì sao release/* không merge ngược vào main trong quy trình của bài?
+### 1. Vì sao quy trình của bài giữ nhánh release riêng và không merge ngược toàn bộ vào `master`?
 
-Trong quy trình bài thực hành, nhánh release được giữ làm mốc cho một lần phát hành hoặc nộp bài. Vì vậy, các thay đổi riêng của release không được merge ngược toàn bộ vào `main`. Nếu cần đưa một bản sửa sang nhiều nhánh, có thể dùng hotfix rồi cherry-pick commit sửa lỗi phù hợp.
+Trong bài thực hành, mỗi nhánh `release/*` được dùng làm mốc ổn định cho một phiên bản hoặc một lần nộp. Giữ chúng riêng giúp các thay đổi phát sinh ở release cũ không tự động đi ngược vào nhánh phát triển. Khi cần chuyển một bản sửa sang nhánh khác, có thể chọn đúng commit bằng cherry-pick. Repository này dùng `main` làm nhánh tích hợp tương đương `master` trong tài liệu.
 
 ### 2. Quy trình này khác GitFlow ở điểm nào?
 
-Cả hai quy trình đều có nhánh release và hotfix. Nhưng trong GitFlow thường gặp, sau khi phát hành, nhánh release được merge trở lại cả `main` (hoặc `master`) và `develop`. Còn quy trình trong bài yêu cầu giữ các nhánh `release/*` riêng, không merge ngược vào `main`; phần sửa lỗi được chuyển sang nhánh khác bằng cherry-pick khi cần.
+Trong GitFlow phổ biến, nhánh release sau khi phát hành thường được merge trở lại cả `master/main` và `develop). Quy trình của bài thực hành đơn giản hóa luồng đó: các nhánh `release/*` được giữ như những snapshot riêng, không merge ngược toàn bộ vào nhánh tích hợp. Khi cần đồng bộ bản sửa, bài sử dụng cherry-pick thay vì merge cả nhánh release.
 
-### 3. Vì sao phát hành 1.0.0 thay vì 0.4.0?
+### 3. Vì sao chọn phiên bản 1.0.0 thay vì 0.4.0?
 
-Theo Semantic Versioning, phiên bản 1.0.0 thường được dùng khi dự án đã sẵn sàng công bố một API ổn định. Các phiên bản 0.x thường dành cho giai đoạn phát triển ban đầu, khi API vẫn có thể thay đổi không tương thích. Việc chọn 1.0.0 trong bài thể hiện dự án đã đạt mốc phát hành đầu tiên theo quy ước này.
+Theo Semantic Versioning, 1.0.0 thường đánh dấu thời điểm dự án sẵn sàng công bố API ổn định. Phiên bản 0.x thường được dùng trong giai đoạn phát triển ban đầu, khi API còn có thể thay đổi không tương thích. Đây là mốc quy ước về mức độ ổn định, không có nghĩa phần mềm đã hết lỗi.
