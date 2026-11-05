@@ -1,13 +1,13 @@
-from cart import Cart
-from dvd import DVD
+from aims.cart import Cart
+from aims.dvd import DigitalVideoDisc
 
 
-def main():
+def main() -> None:
     cart = Cart()
     for dvd in (
-        DVD("The Lion King", 19.99),
-        DVD("Finding Nemo", 14.95),
-        DVD("Inception", 28.95),
+        DigitalVideoDisc("The Lion King", cost=19.95),
+        DigitalVideoDisc("Finding Nemo", cost=24.99),
+        DigitalVideoDisc("Inception", cost=18.95),
     ):
         cart.add_dvd(dvd)
     print(f"Total cost: {cart.total_cost():.2f} $")
