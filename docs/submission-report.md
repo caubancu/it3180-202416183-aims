@@ -41,16 +41,19 @@ Repository: https://github.com/caubancu/it3180-202416183-aims
 - #17 Thêm GitHub Actions CI.
 - #18 Sửa lỗi import search trên main.
 - #19 Sửa lỗi import search trên release/lab05.
+- #20 Bổ sung báo cáo và câu trả lời Lab 01–05.
+- #21 Dùng Cart.print_cart trong main.py và thêm test.
+- #22–#25 Lan truyền thay đổi demo/cart-print vào các snapshot release/lab02–lab05.
 
-PR #1/#2/#6/#8/#9/#10/#11/#12/#13/#15/#16/#17/#18/#19 dùng merge commit; PR #3 dùng squash; PR #4 dùng rebase. Các PR được tạo bởi chủ repository; không có review/approval từ cộng tác viên thứ hai được ghi nhận.
+PR #1/#2/#6/#8/#10/#11/#12/#13/#15/#16/#17/#18/#19/#20/#21/#22–#25 dùng merge commit; PR #3 dùng squash; PR #4 dùng rebase; PR #9 dùng squash. Các PR được tạo bởi chủ repository; không có review/approval từ cộng tác viên thứ hai được ghi nhận.
 
 ## Kiểm thử
 
-GitHub Actions run: https://github.com/caubancu/it3180-202416183-aims/actions/runs/42071462020
+GitHub Actions run: https://github.com/caubancu/it3180-202416183-aims/actions/runs/42072027042
 
 - Python 3.11
 - Lệnh: `python -m unittest discover -s tests -v`
-- Kết quả ở lần chạy được kiểm tra: **8 tests — OK**.
+- Kết quả ở lần chạy được kiểm tra: **10 tests — OK**.
 
 Ứng dụng demo được thiết kế để in `Total cost: 63.89 $`.
 
