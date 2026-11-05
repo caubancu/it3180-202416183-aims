@@ -8,7 +8,7 @@ Trong bài thực hành, mỗi nhánh `release/*` được dùng làm mốc ổn
 
 ### 2. Quy trình này khác GitFlow ở điểm nào?
 
-Trong GitFlow phổ biến, nhánh release sau khi phát hành thường được merge trở lại cả `master/main` và `develop). Quy trình của bài thực hành đơn giản hóa luồng đó: các nhánh `release/*` được giữ như những snapshot riêng, không merge ngược toàn bộ vào nhánh tích hợp. Khi cần đồng bộ bản sửa, bài sử dụng cherry-pick thay vì merge cả nhánh release.
+Trong GitFlow phổ biến, nhánh release sau khi phát hành thường được merge trở lại cả `master/main` và `develop`. Quy trình của bài thực hành đơn giản hóa luồng đó: các nhánh `release/*` được giữ như những snapshot riêng, không merge ngược toàn bộ vào nhánh tích hợp. Khi cần đồng bộ bản sửa, bài sử dụng cherry-pick thay vì merge cả nhánh release.
 
 ### 3. Vì sao chọn phiên bản 1.0.0 thay vì 0.4.0?
 
