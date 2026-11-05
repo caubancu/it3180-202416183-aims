@@ -2,16 +2,14 @@
 
 ## Câu hỏi thảo luận
 
-### 1. `git config --global` được lưu ở đâu? Khác gì `--local`?
+### 1. `git mv` dùng để làm gì?
 
-- `--global` lưu cấu hình trong file `.gitconfig` của người dùng (thường nằm ở thư mục home). Cấu hình này được dùng cho các repository của người dùng đó.
-- `--local` lưu trong `.git/config` của repository hiện tại, nên chỉ có tác dụng với repo này. Nếu cùng một thiết lập được khai báo ở cả hai nơi thì cấu hình local được ưu tiên.
+`git mv` dùng để đổi tên hoặc di chuyển file trong working tree và cập nhật thay đổi đó vào staging area. Có thể làm thao tác tương tự bằng cách tự di chuyển file rồi dùng `git add` và `git rm`; Git vẫn nhận diện việc đổi tên khi so sánh nội dung ở các commit.
 
-### 2. `git restore` và `git restore --staged` khác nhau thế nào?
+### 2. Vì sao cần giữ baseline của Lab 01 trên nhánh `release/lab01`?
 
-- `git restore <file>` đưa nội dung trong working tree về trạng thái ở staging area, tức là bỏ phần sửa chưa được stage.
-- `git restore --staged <file>` đưa file trong staging area về trạng thái của commit hiện tại (HEAD). Phần sửa trong working tree vẫn được giữ lại.
+Nhánh `release/lab01` lưu lại trạng thái code tại thời điểm hoàn thành Lab 01. Khi tiếp tục làm Lab 02–05 trên các nhánh khác, mình vẫn có thể quay lại đúng phiên bản của Lab 01 để kiểm tra hoặc đối chiếu, thay vì để các thay đổi mới làm mất mốc cũ.
 
-### 3. Khi nào dùng `git commit --amend`?
+### 3. Vì sao không nên commit trực tiếp lên nhánh tích hợp (`master`)?
 
-Dùng lệnh này khi muốn sửa commit gần nhất, chẳng hạn sửa message hoặc thêm file bị bỏ sót. Lệnh tạo ra một commit mới có SHA khác. Vì vậy, nên dùng với commit chưa push/chia sẻ; nếu commit đã được chia sẻ thì thường nên tạo commit mới để tránh viết lại lịch sử của người khác.
+Không commit trực tiếp giúp nhánh tích hợp chỉ nhận thay đổi đã được kiểm tra qua Pull Request. Mỗi phần việc được làm trên nhánh riêng, sau đó mở PR để xem diff, chạy test và mới tích hợp. Trong repository này, nhánh mặc định là `main), được dùng tương đương `master` trong tài liệu bài thực hành.
