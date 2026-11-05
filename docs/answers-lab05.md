@@ -1,16 +1,22 @@
-# Lab 05 — Hotfix & multi-version maintenance
+# Lab 05 — Hotfix flow & multi-version maintenance
 
 ## Câu hỏi thảo luận
 
-### 1. Nên xử lý hotfix theo hướng upstream-first hay release-first?
+### 1. Ưu và nhược điểm của upstream-first so với release-first là gì?
 
-Nếu lỗi xuất hiện trên một phiên bản release đang được sử dụng, nên tạo hotfix từ đúng nhánh release đó trước để bảo đảm bản sửa chạy trên baseline bị lỗi. Sau khi kiểm tra, chuyển commit sửa lỗi lên nhánh phát triển (upstream) và các nhánh release còn được hỗ trợ. Nếu lỗi được phát hiện đầu tiên trên nhánh phát triển và chưa có bản release nào bị ảnh hưởng, có thể sửa ở upstream trước. Quan trọng là phải xác định đúng các nhánh thực sự bị lỗi, không áp dụng máy móc một thứ tự cho mọi trường hợp.
+- **Upstream-first:** sửa lỗi trên nhánh phát triển chính trước, sau đó cherry-pick sang các nhánh release bị ảnh hưởng. Cách này giúp bản sửa được tích hợp vào hướng phát triển chung sớm và tránh mỗi nhánh tự tạo một cách sửa khác nhau. Tuy nhiên, code trên upstream có thể đã khác phiên bản release cũ, nên commit có thể khó áp dụng hoặc cần điều chỉnh khi cherry-pick.
+- **Release-first:** tạo hotfix từ đúng nhánh release đang bị lỗi, kiểm tra trên baseline người dùng thực sự đang chạy rồi chuyển commit sửa sang upstream và các release liên quan. Cách này bảo đảm bản vá phù hợp với phiên bản bị lỗi, nhưng phải kiểm tra và lan truyền đầy đủ sang mọi nhánh bị ảnh hưởng; nếu bỏ sót một nhánh thì lỗi vẫn còn ở phiên bản đó.
 
-### 2. Làm sao kiểm tra một commit sửa lỗi đã được đưa vào tag hoặc nhánh khác?
+Trong Release Flow của bài thực hành, ta dùng **release-first**: tạo hotfix từ `release/lab04`, sau đó cherry-pick phần sửa sang `master` và `release/lab05`.
 
-- `git tag --contains <FIX_SHA>` liệt kê các tag có lịch sử chứa commit đó. Lệnh này hữu ích khi commit được merge trực tiếp; nếu dùng cherry-pick thì commit ở nhánh đích có SHA khác, nên cần kiểm tra commit cherry-pick tương ứng.
-- `git cherry -v <upstream> <branch>` so sánh các commit ở `branch` chưa có trong `upstream`. Dấu `+` cho biết thay đổi chưa có bản tương đương ở upstream; dấu `-` cho biết upstream đã có commit tương đương về patch. Cần đặt đúng thứ tự hai nhánh khi chạy lệnh.
+### 2. Nếu quên lan truyền bản sửa sang `release/lab05`, dùng lệnh nào ở Phần F để phát hiện?
 
-### 3. Vì sao dùng `cherry-pick -x` khi lan truyền hotfix?
+Lệnh kiểm tra số commit cherry-pick được ghi nhận là:
 
-`cherry-pick` áp dụng commit sửa lỗi được chọn lên nhánh đích. Tùy chọn `-x` thêm SHA của commit nguồn vào message, giúp truy lại nguồn gốc bản sửa. Nên tách commit sửa code/test khỏi commit bump version hoặc cập nhật CHANGELOG để tránh đưa thay đổi chỉ dành cho một release sang nhánh khác.
+`git log --all --oneline --grep "cherry picked from commit <FIX_SHA>"`
+
+Nếu mới chỉ lan truyền sang một nhánh thì kết quả sẽ thiếu commit cherry-pick tương ứng. Có thể kiểm tra trực tiếp xem bản sửa trên `master` đã có bản tương đương ở `release/lab05` chưa bằng:
+
+`git cherry -v origin/release/lab05 origin/master`
+
+Nếu commit sửa lỗi hiện dấu `+`, thay đổi đó chưa có bản tương đương trên `release/lab05`; dấu `-` cho biết đã có commit tương đương về patch. Cần dùng đúng thứ tự nhánh như trên vì `git cherry` so sánh các commit ở đối số thứ hai với upstream ở đối số thứ nhất.
