@@ -4,15 +4,15 @@
 
 ### 1. `git merge-base` dùng để làm gì?
 
-`git merge-base <branch1> <branch2>` tìm commit tổ tiên chung tốt nhất của hai nhánh. Commit này giúp xác định điểm hai nhánh bắt đầu tách ra và được Git dùng làm cơ sở khi thực hiện một số kiểu merge. Có thể dùng lệnh này để kiểm tra quan hệ giữa nhánh feature và nhánh tích hợp.
+`git merge-base <branch1> <branch2>` tìm commit tổ tiên chung tốt nhất của hai nhánh. Commit này giúp xác định điểm hai nhánh bắt đầu tách ra và là cơ sở để Git thực hiện merge ba chiều. Có thể dùng lệnh này để kiểm tra quan hệ giữa nhánh feature và nhánh tích hợp.
 
-### 2. Vì sao nên dùng `git revert` thay vì `git reset` trên nhánh đã chia sẻ?
+### 2. Vì sao `master` và `release/*` nên dùng `git revert` thay vì `git reset`?
 
-`git revert` tạo một commit mới để đảo ngược thay đổi, nên không xóa hoặc viết lại các commit cũ mà người khác có thể đã lấy về. Ngược lại, `git reset` di chuyển nhánh về commit trước đó và có thể làm lịch sử trên remote lệch với lịch sử local. Vì vậy, với nhánh đã push và được dùng chung, revert thường an toàn hơn.
+Đây là các nhánh dùng chung và lưu lại lịch sử đã chia sẻ. `git revert` tạo một commit mới để đảo ngược thay đổi, nên không viết lại lịch sử mà các thành viên khác có thể đã pull về. Ngược lại, `git reset` di chuyển nhánh về commit cũ và có thể làm lịch sử local/remote không còn khớp. Vì vậy, với `master` (repository này dùng `main`) và các nhánh `release/*`, nên revert thay vì reset.
 
 ### 3. Phân biệt reset, reflog và revert.
 
-- `reset` di chuyển HEAD và nhánh hiện tại về một commit khác. Tùy `--soft`, `--mixed` hay `--hard`, staging area và working tree được giữ lại hoặc cập nhật khác nhau.
+- `reset` di chuyển HEAD và nhánh hiện tại về một commit khác. Tùy `--soft`, `--mixed` hay `--hard`, staging area và working tree được giữ lại hoặc cập nhật khác nhau. Chỉ nên dùng để chỉnh lịch sử chưa chia sẻ.
 - `reflog` ghi lại các lần HEAD và ref local được cập nhật; có thể dùng để tìm lại vị trí commit trước đó.
 - `revert` tạo commit mới đảo ngược thay đổi của commit được chọn, phù hợp với lịch sử đã chia sẻ.
 
