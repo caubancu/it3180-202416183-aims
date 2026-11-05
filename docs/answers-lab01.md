@@ -12,4 +12,4 @@ Nhánh `release/lab01` lưu lại trạng thái code tại thời điểm hoàn 
 
 ### 3. Vì sao không nên commit trực tiếp lên nhánh tích hợp (`master`)?
 
-Không commit trực tiếp giúp nhánh tích hợp chỉ nhận thay đổi đã được kiểm tra qua Pull Request. Mỗi phần việc được làm trên nhánh riêng, sau đó mở PR để xem diff, chạy test và mới tích hợp. Trong repository này, nhánh mặc định là `main), được dùng tương đương `master` trong tài liệu bài thực hành.
+Không commit trực tiếp giúp nhánh tích hợp chỉ nhận thay đổi đã được kiểm tra qua Pull Request. Mỗi phần việc được làm trên nhánh riêng, sau đó mở PR để xem diff, chạy test và mới tích hợp. Trong repository này, nhánh mặc định là `main`, được dùng tương đương `master` trong tài liệu bài thực hành.
