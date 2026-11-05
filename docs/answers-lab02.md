@@ -2,14 +2,14 @@
 
 ## Câu hỏi thảo luận
 
-### 1. Vì sao phải đồng bộ nhánh với main trước khi tạo PR?
+### 1. Vì sao nên đồng bộ nhánh với main trước khi tạo PR?
 
-Đồng bộ giúp phát hiện xung đột sớm, kiểm tra thay đổi trên nền mã nguồn mới nhất và tránh tích hợp một nhánh đã lỗi thời. Sau khi đồng bộ cần chạy lại test trước khi gửi PR.
+Việc cập nhật nhánh giúp mình phát hiện xung đột sớm và kiểm tra thay đổi trên phiên bản mã nguồn mới hơn. Sau khi merge hoặc rebase với `main`, nên chạy lại test để chắc rằng phần code của nhánh vẫn hoạt động.
 
-### 2. Khi nào không được rebase?
+### 2. Khi nào không nên rebase?
 
-Không nên rebase nhánh/commit đã được push và đang được người khác sử dụng, vì rebase viết lại lịch sử và thay đổi SHA. Có thể rebase các commit cục bộ chưa chia sẻ để làm lịch sử gọn hơn.
+Không nên rebase một nhánh đã push và đang được người khác cùng sử dụng, vì rebase viết lại lịch sử commit và làm thay đổi SHA. Với các commit còn ở máy local, chưa chia sẻ, có thể rebase để sắp xếp hoặc làm gọn lịch sử.
 
 ### 3. `feature/*` khác `topic/*` như thế nào?
 
-`feature/*` thường bổ sung hành vi/chức năng của sản phẩm, ví dụ tìm DVD theo tiêu đề. `topic/*` gom một nhiệm vụ theo chủ đề, thường là tài liệu, cấu hình hoặc chuẩn bị quy trình, ví dụ thêm use-case hoặc PR template.
+Theo cách đặt tên nhánh trong bài thực hành, `feature/*` dùng cho phần bổ sung chức năng của chương trình, ví dụ tìm DVD theo tiêu đề. `topic/*` thường dùng cho một đầu việc riêng như tài liệu, cấu hình hoặc chuẩn bị quy trình, ví dụ thêm use-case hay PR template. Đây là quy ước đặt tên của dự án, không phải hai loại nhánh có cách hoạt động khác nhau trong Git.
