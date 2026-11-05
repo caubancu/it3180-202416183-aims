@@ -15,6 +15,11 @@ All notable changes to this project are documented in this file.
 - Reject the 21st DVD when the cart already contains 20 items
 - Return the payable total after discount
 
+## [1.0.1] - 2026-11-05
+
+### Fixed
+- Make DVD title search case-insensitive
+
 ## [1.0.0] - 2026-11-05
 
 ### Added
