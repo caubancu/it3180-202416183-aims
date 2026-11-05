@@ -8,7 +8,7 @@ class Cart:
         self.items: list[DigitalVideoDisc] = []
 
     def add_dvd(self, dvd: DigitalVideoDisc) -> bool:
-        if len(self.items) >= MAX_NUMBERS_ORDERED:
+        if len(self.items) > MAX_NUMBERS_ORDERED:
             return False
         self.items.append(dvd)
         return True
@@ -19,7 +19,4 @@ class Cart:
     def print_cart(self) -> str:
         if not self.items:
             return "The cart is empty"
-        return "\n".join(
-            f"{index}. {dvd.title} — {dvd.cost:.2f} $"
-            for index, dvd in enumerate(self.items, start=1)
-        )
+        return "\n".join(f"{i}. {dvd.title} — {dvd.cost:.2f} $" for i, dvd in enumerate(self.items, 1))
