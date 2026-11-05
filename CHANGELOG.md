@@ -6,6 +6,11 @@ The format follows Keep a Changelog and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-11-05
+
+### Fixed
+- Make DVD title search case-insensitive
+
 ## [1.0.0] - 2026-11-05
 
 ### Added
