@@ -10,6 +10,7 @@ def main() -> None:
         DigitalVideoDisc("Inception", cost=18.95),
     ):
         cart.add_dvd(dvd)
+    print(cart.print_cart())
     print(f"Total cost: {cart.total_cost():.2f} $")
 
 
