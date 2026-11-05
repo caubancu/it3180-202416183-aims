@@ -1,19 +1,22 @@
-# Lab 05 — Hotfix & multi-version maintenance
+# Lab 05 — Hotfix flow & multi-version maintenance
 
 ## Câu hỏi thảo luận
 
-### 1. Vì sao hotfix phải bắt đầu từ release bị lỗi?
+### 1. Ưu và nhược điểm của upstream-first so với release-first là gì?
 
-Hotfix cần được xây dựng trên đúng baseline mà người dùng đang gặp lỗi. Nếu bắt đầu từ main đang phát triển, nhánh có thể chứa thay đổi mới chưa phát hành và không còn đại diện cho phiên bản cần vá.
+- **Upstream-first:** sửa lỗi trên nhánh phát triển chính trước, sau đó cherry-pick sang các nhánh release bị ảnh hưởng. Cách này giúp bản sửa được tích hợp vào hướng phát triển chung sớm và tránh mỗi nhánh tự tạo một cách sửa khác nhau. Tuy nhiên, code trên upstream có thể đã khác phiên bản release cũ, nên commit có thể khó áp dụng hoặc cần điều chỉnh khi cherry-pick.
+- **Release-first:** tạo hotfix từ đúng nhánh release đang bị lỗi, kiểm tra trên baseline người dùng thực sự đang chạy rồi chuyển commit sửa sang upstream và các release liên quan. Cách này bảo đảm bản vá phù hợp với phiên bản bị lỗi, nhưng phải kiểm tra và lan truyền đầy đủ sang mọi nhánh bị ảnh hưởng; nếu bỏ sót một nhánh thì lỗi vẫn còn ở phiên bản đó.
 
-### 2. Vì sao tách commit sửa lỗi khỏi commit bump phiên bản?
+Trong Release Flow của bài thực hành, ta dùng **release-first**: tạo hotfix từ `release/lab04`, sau đó cherry-pick phần sửa sang `main` và `release/lab05`. Tài liệu gọi nhánh tích hợp là `master`; repository này dùng tên `main`.
 
-Commit sửa lỗi chứa đúng phần mã và test cần lan truyền sang các dòng phiên bản khác. Commit bump phiên bản và CHANGELOG chỉ thuộc dòng release tương ứng. Tách hai commit giúp cherry-pick phần sửa mà không vô tình kéo version của 1.0.x sang nhánh 1.1.x.
+### 2. Nếu quên lan truyền bản sửa sang `release/lab05`, dùng lệnh nào ở Phần F để phát hiện?
 
-### 3. Vì sao dùng `cherry-pick -x` thay vì merge cả hotfix branch?
+Lệnh kiểm tra các commit cherry-pick có ghi lại SHA nguồn là:
 
-Cherry-pick áp dụng đúng commit sửa lỗi lên nhánh đích. Tùy chọn `-x` ghi SHA commit nguồn vào message, giúp kiểm toán nguồn gốc bản sửa. Merge toàn bộ hotfix branch có thể kéo theo commit bump version hoặc thay đổi chỉ dành cho release cũ.
+`git log --all --oneline --grep "cherry picked from commit <FIX_SHA>"`
 
-### 4. Vì sao chưa gắn tag v1.1.0 trước khi hoàn tất hotfix?
+Để kiểm tra trực tiếp những commit có trong nhánh tích hợp nhưng chưa có patch tương đương ở `release/lab05`, chạy:
 
-Nếu tag v1.1.0 đã được phát hành rồi mới tích hợp thêm bản sửa, không nên di chuyển tag đã chia sẻ. Khi đó cần phát hành patch tiếp theo (ví dụ v1.1.1). Vì vậy bài yêu cầu để release/lab05 chưa gắn tag cho tới khi hotfix được tích hợp.
+`git cherry -v origin/release/lab05 origin/main`
+
+Nếu commit sửa lỗi hiện dấu `+`, thay đổi đó chưa có bản tương đương trên `release/lab05`; dấu `-` cho biết đã có commit tương đương về patch. Thứ tự đối số quan trọng: nhánh thứ nhất là upstream dùng để so sánh, nhánh thứ hai là các commit cần kiểm tra.
